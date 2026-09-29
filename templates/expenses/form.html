@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<section class="panel narrow"><h1>{% if object %}Edit{% else %}Add{% endif %} expense</h1><form method="post">{% include 'partials/form.html' with form=form submit='Save expense' %}</form></section>{% endblock %}
