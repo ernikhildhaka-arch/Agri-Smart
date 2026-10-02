@@ -117,7 +117,7 @@ Agri-Smart/
 - **Features**: Automatically filters verified national and state-specific agricultural schemes based on the farmer's profile.
 
 ### 10. `apps/chatbot`
-- **Features**: Agricultural query interface. Contains rule-based heuristics for soil, fertilizer, and irrigation prompts, with an explicit extension point in `apps/chatbot/services.py` for plugging in external AI APIs (`AI_API_KEY`, `AI_PROVIDER`).
+- **Features**: Agricultural query interface. Uses Gemini when `AI_API_KEY` is configured and keeps a transparent rule-based fallback for soil, fertilizer, and irrigation prompts.
 
 ### 11. `apps/dashboard`
 - **Dashboard Home**: Aggregates total land area, active farms, total expenditure, and latest recommendations.
@@ -169,10 +169,21 @@ SECRET_KEY=your-secure-secret-key
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
 ML_MODEL_PATH=ml_models/crop_recommendation/model.pkl
-AI_API_KEY=
-AI_PROVIDER=
 OPENWEATHER_API_KEY=your_openweather_api_key_here
+AI_PROVIDER=gemini
+AI_MODEL=gemini-2.0-flash
+AI_API_KEY=your_gemini_api_key_here
+IOT_API_KEY=change-this-device-gateway-key
 ```
+
+`OPENWEATHER_API_KEY` enables live current conditions for the farm location. `AI_API_KEY`
+enables Gemini responses in the assistant; without it, the local rule-based fallback remains
+available. Both services fail safely to an explicitly labelled fallback when unavailable.
+
+IoT devices can persist readings through `POST /iot/api/<device_id>/readings/` with the
+`X-IOT-API-KEY` header and a JSON body containing any of `soil_moisture`, `water_level`,
+`temperature`, and `humidity`. Readings are stored in SQLite and automatically create or
+resolve crop-aware water alerts. Register devices under Django Admin first.
 
 ---
 
