@@ -31,3 +31,8 @@ LANGUAGE_CODE = 'en-us'; TIME_ZONE = 'Asia/Kolkata'; USE_I18N = True; USE_TZ = T
 STATIC_URL = 'static/'; STATICFILES_DIRS = [BASE_DIR / 'static']; STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'accounts:login'; LOGIN_REDIRECT_URL = 'dashboard:home'; LOGOUT_REDIRECT_URL = 'accounts:login'
+OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY', '').strip()
+AI_API_KEY = os.getenv('AI_API_KEY', '').strip()
+AI_PROVIDER = os.getenv('AI_PROVIDER', 'gemini').strip().lower() or 'gemini'
+AI_MODEL = os.getenv('AI_MODEL', 'gemini-2.0-flash').strip() or 'gemini-2.0-flash'
+IOT_API_KEY = os.getenv('IOT_API_KEY', '').strip()
