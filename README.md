@@ -211,5 +211,5 @@ resolve crop-aware water alerts. Register devices under Django Admin first.
 
 5. **Start Development Server**:
    ```bash
-   python manage.py runserver 0.0.0.0:8000
+   python manage.py runserver 
    ```
